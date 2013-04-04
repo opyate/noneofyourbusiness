@@ -148,7 +148,8 @@ cd $NOYB && \\
 git init && \\
 git add . && \\
 git commit -m "fresh installation of git@github.com:opyate/$NOYB.git" && \\
-git remote add origin git@github.com:YOURNAME/YOURSAFEPLACE.git
+git remote add origin git@github.com:$(whoami)/noneofyourbusiness.git && \\
+git push origin master
 
 Now whenever you're in the middle of something, need to save it, and don't have time to faff about with keeping a copy safe somewhere...
 
