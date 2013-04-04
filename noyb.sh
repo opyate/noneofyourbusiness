@@ -45,55 +45,6 @@ Credit
 CREDIT
 }
 
-if [ "${PWD##*/}" == "$NOYB" ] ; then
-	echo "Welcome."
-else
-	# Assume from-the-web install with cURL
-	if [ -d "$NOYB" ] ; then
-		echo "You seem good to go: 'cd $NOYB' and start cracking."
-	else
-		# TODO github username
-		git clone git@github.com:opyate/$NOYB.git
-		cd $NOYB
-		rm -rf $DEST
-		ln -s noyb.sh $ENC
-		ln -s noyb.sh $DEC
-		gitignore
-		append_credits
-		cat <<DOC
- _   _  ______     ______  
- | \ | |/ __ \ \   / /  _ \ 
- |  \| | |  | \ \_/ /| |_) |
- | . \` | |  | |\   / |  _ < 
- | |\  | |__| | | |  | |_) |
- |_| \_|\____/  |_|  |____/ 
-
-Setup complete!
-
-	- We're decrypting from '$SOURCE' and encrypting to '$DEST'.
-	- Add $(pwd)/$ENC and $(pwd)/$DEC to your \$PATH
-		-- Copy this for zsh (possibly w/o 'export'):
-
-echo "export PATH=\\\$PATH:$(pwd)" >> ~/.zshrc
-source ~/.zshrc
-
-		-- Copy this for bash:
-
-echo "export PATH=\\\$PATH:$(pwd)" >> ~/.bashrc
-source ~/.bashrc
-
-	- Remove the git history, and push to your own repo:
-
-rm -rf .git
-git remote add origin git@github.com:YOURNAME/YOURSAFEPLACE.git
-
-Now whenever you're in the middle of something, need to save it, and don't have time to faff about with keeping a copy safe somewhere...
-DOC
-		usage
-		exit 0
-	fi
-fi
-
 # establish where the $NOYB checkout directory is
 BASE=$(basename $0)
 if [ "$(dirname $0)" == "." ] ; then
@@ -163,7 +114,49 @@ elif [ "$BASE" == "$DEC" ] ; then
 		exit 1
 	fi
 else
-	echo "Unknown command. Please try and set up again."
-	exit 3
+	# Assume from-the-web install with cURL
+	if [ -d "$NOYB" ] ; then
+		echo "You seem good to go: 'cd $NOYB' and start cracking."
+	else
+		# TODO github username
+		git clone git@github.com:opyate/$NOYB.git
+		cd $NOYB
+		rm -rf $DEST
+		ln -s noyb.sh $ENC
+		ln -s noyb.sh $DEC
+		gitignore
+		append_credits
+		cat <<DOC
+ _   _  ______     ______  
+ | \ | |/ __ \ \   / /  _ \ 
+ |  \| | |  | \ \_/ /| |_) |
+ | . \` | |  | |\   / |  _ < 
+ | |\  | |__| | | |  | |_) |
+ |_| \_|\____/  |_|  |____/ 
+
+Setup complete!
+
+	- We're decrypting from '$SOURCE' and encrypting to '$DEST'.
+	- Add $(pwd)/$ENC and $(pwd)/$DEC to your \$PATH
+		-- Copy this for zsh (possibly w/o 'export'):
+
+echo "export PATH=\\\$PATH:$(pwd)" >> ~/.zshrc
+source ~/.zshrc
+
+		-- Copy this for bash:
+
+echo "export PATH=\\\$PATH:$(pwd)" >> ~/.bashrc
+source ~/.bashrc
+
+	- Remove the git history, and push to your own repo:
+
+rm -rf .git
+git remote add origin git@github.com:YOURNAME/YOURSAFEPLACE.git
+
+Now whenever you're in the middle of something, need to save it, and don't have time to faff about with keeping a copy safe somewhere...
+DOC
+		usage
+		exit 0
+	fi
 fi
 
