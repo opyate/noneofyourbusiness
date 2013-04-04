@@ -144,10 +144,10 @@ You now need to do the following 2 things:
 	- ./noyb.sh was symlinked to ~/bin/$ENC and ~/bin/$DEC, so add ~/bin to your PATH if you haven't already.
 	- Run this command:
 	
-cd $NOYB && \
-git init && \
-git add . && \
-git commit -m "fresh installation of git@github.com:opyate/$NOYB.git" && \
+cd $NOYB && \\
+git init && \\
+git add . && \\
+git commit -m "fresh installation of git@github.com:opyate/$NOYB.git" && \\
 git remote add origin git@github.com:YOURNAME/YOURSAFEPLACE.git
 
 Now whenever you're in the middle of something, need to save it, and don't have time to faff about with keeping a copy safe somewhere...
