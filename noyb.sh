@@ -28,8 +28,6 @@ function gitignore() {
   if [ "${PWD##*/}" == "$NOYB" ] ; then
 	  echo "" > .gitignore
 	  echo $SOURCE >> .gitignore
-	  echo $ENC >> .gitignore
-	  echo $DEC >> .gitignore
   fi
 }
 
@@ -47,8 +45,11 @@ CREDIT
 
 # establish where the $NOYB checkout directory is
 BASE=$(basename $0)
-if [ "$(dirname $0)" == "." ] ; then
-	CHECKOUT=$(dirname $0)
+echo "basename $BASE"
+DIRNAME=$(dirname $0)
+echo "dirname $DIRNAME"
+if [ "$DIRNAME" == "." ] ; then
+	CHECKOUT=$DIRNAME
 else
 	# assume that the $ENC and $DEC symlinks were added to some $PATH, and use 'readlink'
 	CHECKOUT=$(dirname $(readlink $0))
@@ -113,8 +114,8 @@ elif [ "$BASE" == "$DEC" ] ; then
 		usage
 		exit 1
 	fi
-else
-	# Assume from-the-web install with cURL
+elif [ "$BASE" == "sh" ] ; then
+	# from-the-web install with cURL
 	if [ -d "$NOYB" ] ; then
 		echo "You seem good to go: 'cd $NOYB' and start cracking."
 	else
@@ -122,8 +123,9 @@ else
 		git clone git@github.com:opyate/$NOYB.git
 		cd $NOYB
 		rm -rf $DEST
-		ln -s noyb.sh $ENC
-		ln -s noyb.sh $DEC
+		mkdir -p ~/bin
+		ln -s noyb.sh ~/bin/$ENC
+		ln -s noyb.sh ~/bin/$DEC
 		gitignore
 		append_credits
 		cat <<DOC
@@ -136,18 +138,8 @@ else
 
 Setup complete!
 
+	- ./noyb.sh was symlinked to ~/bin/$ENC and ~/bin/$DEC, so add ~/bin to your PATH if you haven't already.
 	- We're decrypting from '$SOURCE' and encrypting to '$DEST'.
-	- Add $(pwd)/$ENC and $(pwd)/$DEC to your \$PATH
-		-- Copy this for zsh (possibly w/o 'export'):
-
-echo "export PATH=\\\$PATH:$(pwd)" >> ~/.zshrc
-source ~/.zshrc
-
-		-- Copy this for bash:
-
-echo "export PATH=\\\$PATH:$(pwd)" >> ~/.bashrc
-source ~/.bashrc
-
 	- Remove the git history, and push to your own repo:
 
 rm -rf .git
@@ -158,5 +150,8 @@ DOC
 		usage
 		exit 0
 	fi
+else
+	echo "I'm confused. You're neither running $ENC, nor $DEC, nor installing me."
+	exit 3
 fi
 
