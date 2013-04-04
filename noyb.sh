@@ -17,7 +17,7 @@ USAGE
 	fi
 
 	cat <<USAGE
-Run the commands with the following arguments:
+Usage:
 
 	$ENC <optional /path/to/stuff/you/want/to/keep> (default: .)
 	$DEC <optional name> (default: 16 random characters)
@@ -138,14 +138,19 @@ elif [ "$BASE" == "sh" ] ; then
 
 Setup complete!
 
+You now need to do the following 2 things:
+
 	- ./noyb.sh was symlinked to ~/bin/$ENC and ~/bin/$DEC, so add ~/bin to your PATH if you haven't already.
-	- We're decrypting from '$SOURCE' and encrypting to '$DEST'.
-	- Remove the git history, and push to your own repo:
+	- remove the git history, and push to your own repo:
 
 rm -rf .git
 git remote add origin git@github.com:YOURNAME/YOURSAFEPLACE.git
 
 Now whenever you're in the middle of something, need to save it, and don't have time to faff about with keeping a copy safe somewhere...
+
+	- noyb.sh will $ENC to '$DEST'.
+	- noyb.sh will $DEC to '$SOURCE'
+
 DOC
 		usage
 		exit 0
