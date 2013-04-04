@@ -72,16 +72,16 @@ Setup complete!
 
 	- We're decrypting from '$SOURCE' and encrypting to '$DEST'.
 	- Add $(pwd)/$ENC and $(pwd)/$DEC to your \$PATH
-		-- Copy this for zsh:
+		-- Copy this for zsh (possibly w/o 'export'):
 
-echo "export PATH=\$PATH:$(pwd)/$ENC" >> ~/.zshrc
-echo "export PATH=\$PATH:$(pwd)/$DEC" >> ~/.zshrc
+echo "export PATH=\\\$PATH:$(pwd)/$ENC" >> ~/.zshrc
+echo "export PATH=\\\$PATH:$(pwd)/$DEC" >> ~/.zshrc
 source ~/.zshrc
 
 		-- Copy this for bash:
 
-echo "export PATH=\$PATH:$(pwd)/$ENC" >> ~/.bashrc
-echo "export PATH=\$PATH:$(pwd)/$DEC" >> ~/.bashrc
+echo "export PATH=\\\$PATH:$(pwd)/$ENC" >> ~/.bashrc
+echo "export PATH=\\\$PATH:$(pwd)/$DEC" >> ~/.bashrc
 source ~/.bashrc
 
 	- Remove the git history, and push to your own repo:
