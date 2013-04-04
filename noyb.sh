@@ -124,8 +124,8 @@ elif [ "$BASE" == "sh" ] ; then
 		cd $NOYB
 		rm -rf $DEST
 		mkdir -p ~/bin
-		ln -s noyb.sh ~/bin/$ENC
-		ln -s noyb.sh ~/bin/$DEC
+		ln -s $(pwd)/noyb.sh ~/bin/$ENC
+		ln -s $(pwd)/noyb.sh ~/bin/$DEC
 		gitignore
 		append_credits
 		cat <<DOC
