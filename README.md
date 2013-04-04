@@ -1,0 +1,4 @@
+noneofyourbusiness
+==================
+
+Random, hashed ideas.
