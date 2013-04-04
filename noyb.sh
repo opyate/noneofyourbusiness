@@ -146,8 +146,8 @@ You now need to do the following 2 things:
 
 Now whenever you're in the middle of something, need to save it, and don't have time to faff about with keeping a copy safe somewhere...
 
-	- noyb.sh will $ENC to '$(pwd)/$DEST'.
-	- noyb.sh will $DEC to '$(pwd)/$SOURCE'
+	- noyb.sh will $ENC to   '$(pwd)/$DEST'.
+	- noyb.sh will $DEC from '$(pwd)/$SOURCE'
 
 DOC
 		usage
