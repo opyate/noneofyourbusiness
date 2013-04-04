@@ -75,11 +75,13 @@ Setup complete!
 		-- Copy this for zsh:
 
 echo "export PATH=\$PATH:$(pwd)/$ENC" >> ~/.zshrc
+echo "export PATH=\$PATH:$(pwd)/$DEC" >> ~/.zshrc
 source ~/.zshrc
 
 		-- Copy this for bash:
 
 echo "export PATH=\$PATH:$(pwd)/$ENC" >> ~/.bashrc
+echo "export PATH=\$PATH:$(pwd)/$DEC" >> ~/.bashrc
 source ~/.bashrc
 
 	- Remove the git history, and push to your own repo:
