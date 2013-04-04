@@ -23,6 +23,6 @@ Resume work on it later with:
 
 	resume <key>
 
-...where ```key``` is the name yourself or ```noyb``` chose to save the blob as.
+...where ```key``` is the name yourself (or ```noyb```) chose to save the blob as.
 
 
