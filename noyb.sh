@@ -75,12 +75,10 @@ Setup complete!
 		-- Copy this for zsh (possibly w/o 'export'):
 
 echo "export PATH=\\\$PATH:$(pwd)" >> ~/.zshrc
-echo "export PATH=\\\$PATH:$(pwd)" >> ~/.zshrc
 source ~/.zshrc
 
 		-- Copy this for bash:
 
-echo "export PATH=\\\$PATH:$(pwd)" >> ~/.bashrc
 echo "export PATH=\\\$PATH:$(pwd)" >> ~/.bashrc
 source ~/.bashrc
 
