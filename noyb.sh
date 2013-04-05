@@ -6,6 +6,7 @@ SOURCE="work"
 DEST="hashes"
 ENC="save"
 DEC="resume"
+SECRET=".secret"
 
 function usage() {
 	if [ "${PWD##*/}" != "$NOYB" ] ; then
@@ -28,6 +29,7 @@ function gitignore() {
   if [ "${PWD##*/}" == "$NOYB" ] ; then
 	  echo "" > .gitignore
 	  echo $SOURCE >> .gitignore
+	  echo $SECRET >> .gitignore
   fi
 }
 
@@ -85,7 +87,13 @@ if [ "$BASE" == "$ENC" ] ; then
 	fi
 	echo "Found *$STATUS* destination directory: $(pwd)/$DEST"
 	echo "Blob will be saved to $(pwd)/$DEST/$ENCRYPTED"
-	tar -czf - -C $DECRYPTED . | openssl aes-256-cbc -out $DEST/$ENCRYPTED
+	if [ -f $SECRET ] ; then
+		INTER=$(mktemp -d -t nyob)/intermediary.tgz
+		tar -czf $INTER -C $DECRYPTED .
+		cat $SECRET | openssl aes-256-cbc -out $DEST/$ENCRYPTED -in $INTER -kfile /dev/stdin
+	else
+		tar -czf - -C $DECRYPTED . | openssl aes-256-cbc -out $DEST/$ENCRYPTED
+	fi
 	git add $DEST/$ENCRYPTED
 	git commit -m "$DEST/$ENCRYPTED"
 	git push origin master
@@ -99,7 +107,11 @@ elif [ "$BASE" == "$DEC" ] ; then
 		if [ -d "$DEST" ] ; then
 			echo "Decrypting $ENCRYPTED from source directory: $DEST"
 			INTER=$(mktemp -t noyb)
-			openssl aes-256-cbc -d -in $DEST/$ENCRYPTED -out $INTER
+			if [ -f $SECRET ] ; then
+				cat $SECRET | openssl aes-256-cbc -d -in $DEST/$ENCRYPTED -out $INTER -kfile /dev/stdin
+			else
+				openssl aes-256-cbc -d -in $DEST/$ENCRYPTED -out $INTER
+			fi
 			mkdir -p $SOURCE/$ENCRYPTED
 			tar -xzf $INTER -C $SOURCE/$ENCRYPTED
 			rm $INTER
@@ -126,6 +138,15 @@ elif [ "$BASE" == "sh" ] ; then
 		mkdir -p ~/bin
 		ln -s $(pwd)/noyb.sh ~/bin/$ENC
 		ln -s $(pwd)/noyb.sh ~/bin/$DEC
+		echo "For mega easy, you can choose a passphrase now (not one of your usuals!) or just <ENTER> for none: "
+		# save the old terminal settings
+		oldmodes=$(stty -g)
+		stty -echo
+		read PASSPHRASE
+		stty $oldmodes
+		if [ "x$PASSPHRASE" != "x" ] ; then
+			echo -n $PASSPHRASE > $SECRET
+		fi
 		gitignore
 		append_credits
 		rm -rf .git

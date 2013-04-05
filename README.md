@@ -8,7 +8,14 @@ Your random ideas kept safe.
 Install
 =======
 
-curl -L http://tiny.cc/noyb | sh
+    curl -L http://tiny.cc/noyb | sh
+
+The script will then prompt you for an optional passphrase, which is just for ease of use and means you don't have to enter a passphrase every time you ```save``` something.
+
+Disclosure
+----------
+
+```noyb``` isn't meant to be a poor man's replacement of hardened apps like 1Password, etc. The encryption feature is just meant to deter eyes on work you don't deem quite ready for public consumption yet.
 
 Usage
 =====
