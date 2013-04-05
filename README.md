@@ -10,7 +10,7 @@ Install
 
     curl -L http://tiny.cc/noyb | sh
 
-The script will then prompt you for an optional passphrase, which is just for ease of use and means you don't have to enter a passphrase every time you ```save``` something.
+The script will then urge you to set up an optional passphrase, which is just for ease of use and means you don't have to enter a passphrase every time you ```save``` or ```resume``` something.
 
 Disclosure
 ----------

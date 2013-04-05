@@ -138,15 +138,6 @@ elif [ "$BASE" == "sh" ] ; then
 		mkdir -p ~/bin
 		ln -s $(pwd)/noyb.sh ~/bin/$ENC
 		ln -s $(pwd)/noyb.sh ~/bin/$DEC
-		echo "For mega easy, you can choose a passphrase now (not one of your usuals!) or just <ENTER> for none: "
-		# save the old terminal settings
-		oldmodes=$(stty -g)
-		stty -echo
-		read PASSPHRASE
-		stty $oldmodes
-		if [ "x$PASSPHRASE" != "x" ] ; then
-			echo -n $PASSPHRASE > $SECRET
-		fi
 		gitignore
 		append_credits
 		rm -rf .git
@@ -160,7 +151,7 @@ elif [ "$BASE" == "sh" ] ; then
 
 Setup complete!
 
-You now need to do the following 2 things:
+You now need to do the following 3 things:
 
 	- ./noyb.sh was symlinked to ~/bin/$ENC and ~/bin/$DEC, so add ~/bin to your PATH if you haven't already.
 	- Run this command:
@@ -171,6 +162,8 @@ git add . && \\
 git commit -m "fresh installation of git@github.com:opyate/$NOYB.git" && \\
 git remote add origin git@github.com:$(whoami)/noneofyourbusiness.git && \\
 git push origin master
+
+	- (optional) put a passphrase in $(pwd)/$SECRET
 
 Now whenever you're in the middle of something, need to save it, and don't have time to faff about with keeping a copy safe somewhere...
 
