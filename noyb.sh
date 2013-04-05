@@ -134,7 +134,7 @@ elif [ "$BASE" == "sh" ] ; then
 		echo "You seem good to go: 'cd $NOYB' and start cracking."
 	else
 		# TODO github username
-		git clone git@github.com:opyate/$NOYB.git
+		git clone git://github.com:opyate/$NOYB.git
 		cd $NOYB
 		rm -rf $DEST
 		mkdir -p ~/bin
