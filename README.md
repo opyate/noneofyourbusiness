@@ -46,3 +46,14 @@ To save the current directory, but with a specified key, use dot:
 
 	resume aSphincterSaysWhat
 
+Example 3
+---------
+
+Current directory, no key:
+
+	save
+
+```noyb``` will then choose a random key (e.g. ```533900f1886563664f1c825daf54ab30```. Resume later with:
+
+	resume 533900f1886563664f1c825daf54ab30
+
