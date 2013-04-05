@@ -74,22 +74,22 @@ Q: I have ```work``` checked out on 2+ machines. Will work get lost?
 
 Not as long as you ```resume``` before you start making changes.
 
-   # on machine 1
-   cd /path/to/noneofyourbusiness/work/MyProject
-   echo "I'm on machine 1" > hello.txt
-   save . MyProject
+    # on machine 1
+    cd /path/to/noneofyourbusiness/work/MyProject
+    echo "I'm on machine 1" > hello.txt
+    save . MyProject
    
-   # on machine 2
-   resume MyProject
-   cd /path/to/noneofyourbusiness/work/MyProject
-   echo "I'm on machine 2" >> hello.txt
-   save . MyProject
+    # on machine 2
+    resume MyProject
+    cd /path/to/noneofyourbusiness/work/MyProject
+    echo "I'm on machine 2" >> hello.txt
+    save . MyProject
    
-   # on machine 1 again
-   cd /path/to/noneofyourbusiness/work/MyProject
-   cat hello.txt
-   # output: I'm on machine 1
-   resume MyProject
-   cat hello.txt
-   # output: I'm on machine 1
-   #+ I'm on machine 2
+    # on machine 1 again
+    cd /path/to/noneofyourbusiness/work/MyProject
+    cat hello.txt
+    # output: I'm on machine 1
+    resume MyProject
+    cat hello.txt
+    # output: I'm on machine 1
+    #+ I'm on machine 2
