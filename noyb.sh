@@ -20,8 +20,8 @@ USAGE
 	cat <<USAGE
 Usage:
 
-	$ENC <optional /path/to/stuff/you/want/to/keep> (default: .)
-	$DEC <optional name> (default: 16 random characters)
+	$ENC <optional /path/to/stuff/you/want/to/keep> (default: .) <optional key>
+	$DEC <optional key> (default: 16 random characters)
 USAGE
   }
 
@@ -68,8 +68,6 @@ if [ "$BASE" == "$ENC" ] ; then
 			DECRYPTED=$(pwd)
 		fi
 	else
-		echo "Assume current directory? <any> for y, <Ctrl-C> for n..."
-		read any
 		DECRYPTED=$(pwd)
 	fi
 	if [ $# -eq 2 ] ; then
