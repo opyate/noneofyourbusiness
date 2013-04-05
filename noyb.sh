@@ -64,6 +64,9 @@ echo "Executing $BASE..."
 if [ "$BASE" == "$ENC" ] ; then
 	if [ $# -gt 0 ] ; then
 		DECRYPTED=$1
+		if [ "$DECRYPTED" == "." ] ; then
+			DECRYPTED=$(pwd)
+		fi
 	else
 		echo "Assume current directory? <any> for y, <Ctrl-C> for n..."
 		read any
@@ -91,13 +94,14 @@ if [ "$BASE" == "$ENC" ] ; then
 		INTER=$(mktemp -d -t nyob)/intermediary.tgz
 		tar -czf $INTER -C $DECRYPTED .
 		cat $SECRET | openssl aes-256-cbc -out $DEST/$ENCRYPTED -in $INTER -kfile /dev/stdin
+		rm -rf $INTER
 	else
 		tar -czf - -C $DECRYPTED . | openssl aes-256-cbc -out $DEST/$ENCRYPTED
 	fi
 	git add $DEST/$ENCRYPTED
 	git commit -m "$DEST/$ENCRYPTED"
 	git push origin master
-	echo "Done."
+	echo "Done: $ENCRYPTED"
 	exit 0
 elif [ "$BASE" == "$DEC" ] ; then
 	if [ $# -gt 0 ] ; then
@@ -115,7 +119,7 @@ elif [ "$BASE" == "$DEC" ] ; then
 			mkdir -p $SOURCE/$ENCRYPTED
 			tar -xzf $INTER -C $SOURCE/$ENCRYPTED
 			rm $INTER
-			echo "Done. Your stuff is at \n$CHECKOUT/$SOURCE/$ENCRYPTED"
+			echo -e "Done. Your stuff is at \n$CHECKOUT/$SOURCE/$ENCRYPTED"
 			exit 0
 		else
 			mkdir -p $DEST
