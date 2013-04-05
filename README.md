@@ -15,7 +15,7 @@ The script will then urge you to set up an optional passphrase, which is just fo
 Disclosure
 ----------
 
-```noyb``` isn't meant to be a poor man's replacement of hardened apps like 1Password, etc. The encryption feature is just meant to deter eyes on work you don't deem quite ready for public consumption yet.
+```noyb``` isn't meant to be a secure on-line storage (e.g. poor man's replacement of TrueCrypt + Dropbox). The encryption feature is just meant to deter eyes on work you don't deem quite ready for public consumption yet.
 
 Usage
 =====
