@@ -107,18 +107,23 @@ elif [ "$BASE" == "$DEC" ] ; then
 		cd $CHECKOUT
 		echo "Now working in $CHECKOUT"
 		if [ -d "$DEST" ] ; then
-			echo "Decrypting $ENCRYPTED from source directory: $DEST"
-			INTER=$(mktemp -t noyb)
-			if [ -f $SECRET ] ; then
-				cat $SECRET | openssl aes-256-cbc -d -in $DEST/$ENCRYPTED -out $INTER -kfile /dev/stdin
+			echo "Decrypting '$ENCRYPTED' from source directory: $DEST"
+			if [ -e "$DEST/$ENCRYPTED" ] ; then
+				INTER=$(mktemp -t noyb)
+				if [ -f $SECRET ] ; then
+					cat $SECRET | openssl aes-256-cbc -d -in $DEST/$ENCRYPTED -out $INTER -kfile /dev/stdin
+				else
+					openssl aes-256-cbc -d -in $DEST/$ENCRYPTED -out $INTER
+				fi
+				mkdir -p $SOURCE/$ENCRYPTED
+				tar -xzf $INTER -C $SOURCE/$ENCRYPTED
+				rm $INTER
+				echo -e "Done. Your stuff is at \n$CHECKOUT/$SOURCE/$ENCRYPTED"
+				exit 0
 			else
-				openssl aes-256-cbc -d -in $DEST/$ENCRYPTED -out $INTER
+				echo "'$ENCRYPTED' does not exist in $DEST. Perhaps try pulling from the remote first..."
+				exit 4
 			fi
-			mkdir -p $SOURCE/$ENCRYPTED
-			tar -xzf $INTER -C $SOURCE/$ENCRYPTED
-			rm $INTER
-			echo -e "Done. Your stuff is at \n$CHECKOUT/$SOURCE/$ENCRYPTED"
-			exit 0
 		else
 			mkdir -p $DEST
 			echo "Nothing to decrypt in $DEST... Exiting."
